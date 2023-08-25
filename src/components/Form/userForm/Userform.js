@@ -67,7 +67,9 @@ function Userform() {
       return (post_answer_data[ele.question] = ele.answer);
     });
 
-    axios.post(`http://localhost:9000/student_response/${doc_name}`, {
+    // axios.post(`http://localhost:9000/student_response/${doc_name}`, 
+    axios.post(`https://form-clone-e5252-default-rtdb.firebaseio.com/student_response.json`,
+    {
       column: quest,
       answer_data: [post_answer_data],
     });

@@ -7,9 +7,11 @@ import { IconButton } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import doc_image from "../../images/docs1.png";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 
 const Mainbody = () => {
+  const id=useParams()
   const navigate = useNavigate();
   function navigate_to(docname){
     var fname = docname.split(".");
@@ -18,11 +20,16 @@ const Mainbody = () => {
   const [files, setFiles]= React.useState([]);
 
   async function filenames(){
-    var request = await axios.get("http://localhost:9000/get_all_filenames")
+    // var request = await axios.get("http://localhost:9000/get_all_filenames")
+    var request = await axios.get(`https://form-clone-e5252-default-rtdb.firebaseio.com/add_question.json`)
     let filenames = request.data;
-    setFiles(filenames)
+    const fileArray = Object.keys(filenames)
+    
+    setFiles(fileArray)
+    
   }
-  filenames()
+  filenames();
+  
   return (
     <div className="mainbody">
       <div className="mainbody_top">

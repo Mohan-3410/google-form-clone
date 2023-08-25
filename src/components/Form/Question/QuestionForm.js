@@ -54,33 +54,34 @@ const QuestionForm = () => {
   const [documentName, setDocName] = useState("Untitled Document");
   const [documentDescription, setDocDesc] = useState("Add Description");
 
-  // useEffect(() => {
-  //   async function data_adding() {
-  //     var request = await axios.get(`http://localhost:9000/data/${id}`);
-  //     var question_data = request.data.questions;
+  useEffect(() => {
+    async function data_adding() {
+      
+      var request = await axios.get(`https://form-clone-e5252-default-rtdb.firebaseio.com/add_question/${id}.json`);
+      var question_data = request.data.questions;
 
-  //     console.log(question_data);
-  //     var doc_name = request.data.document_name;
-  //     var doc_descip = request.data.doc_desc;
-  //     console.log(doc_name + " " + doc_descip);
-  //     setDocName(doc_name);
-  //     setDocDesc(doc_descip);
-  //     setQuestions(question_data);
-  //     dispatch({
-  //       type: actionTypes.SET_DOC_NAME,
-  //       doc_name: doc_name,
-  //     });
-  //     dispatch({
-  //       type: actionTypes.SET_DOC_DESC,
-  //       doc_desc: doc_descip,
-  //     });
-  //     dispatch({
-  //       type: actionTypes.SET_QUESTIONS,
-  //       questions: question_data,
-  //     });
-  //   }
-  //   data_adding();
-  // }, []);
+      console.log(question_data);
+      var doc_name = request.data.document_name;
+      var doc_descip = request.data.doc_desc;
+      console.log(doc_name + " " + doc_descip);
+      setDocName(doc_name);
+      setDocDesc(doc_descip);
+      setQuestions(question_data);
+      dispatch({
+        type: actionTypes.SET_DOC_NAME,
+        doc_name: doc_name,
+      });
+      dispatch({
+        type: actionTypes.SET_DOC_DESC,
+        doc_desc: doc_descip,
+      });
+      dispatch({
+        type: actionTypes.SET_QUESTIONS,
+        questions: question_data,
+      });
+    }
+    data_adding();
+  }, []);
 
   function changeQuestion(text, i) {
     var newQuestion = [...questions];
@@ -222,7 +223,9 @@ const QuestionForm = () => {
   
 
   function commitToDB() {
-    axios.post(`http://localhost:9000/add_question/${id}`, {
+    // axios.post(`http://localhost:9000/add_question/${id}`, 
+    axios.patch(`https://form-clone-e5252-default-rtdb.firebaseio.com/add_question/${id}.json`,
+    {
       document_name: documentName,
       doc_desc: documentDescription,
       questions: questions,
