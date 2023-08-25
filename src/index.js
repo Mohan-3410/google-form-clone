@@ -15,10 +15,11 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import { StateProvider } from './components/store/StateProvider';
 import reducer, {initialState} from './components/store/reducer';
+import Applic from './Applic';
 
 ReactDOM.render(
 <StateProvider initialstate={initialState} reducer={reducer}>
-<App />
+<Applic />
 </StateProvider>
 
 , document.getElementById('root'));
